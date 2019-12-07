@@ -14,11 +14,11 @@
             alt="Weather icon"
           />
         </div>
-        <!-- <router-link to="/map"
+        <router-link :to="`/map/${indexDay}`"
           ><img
             id="map-icon"
             src="https://img.icons8.com/ios-glyphs/30/000000/google-maps.png"
-        /></router-link> -->
+        /></router-link>
       </div>
       <div class="itineraryWrap">
         <button class="addBtn" v-on:click="openPopUp(indexDay)">+</button>
@@ -97,7 +97,6 @@ export default {
                 "f8458b1c78msh0cabb0870fc79a6p1d44adjsn84de5db4361c"
             },
             params: {
-              // q: "san francisco,us",
               q: `${this.city},${this.countryCode}`,
               cnt: "17"
             }
@@ -106,19 +105,23 @@ export default {
         .then(response => {
           this.weather = response.data;
           localStorage.weather = response.data;
+        })
+        .catch(error => {
+          this.weather = error;
         });
     },
     checkDate(day, index) {
-      this.weather.list.forEach(item => {
-        if (item.dt <= day && day < item.dt + 24 * 60 * 60) {
-          this.days[index].weather = item.weather[0].main;
-          this.days[index].weatherIcon =
-            "http://openweathermap.org/img/w/" + item.weather[0].icon + ".png";
-          // this.days[index].weather = new Date(item.dt * 1000).toLocaleString(
-          //   "us"
-          // );
-        }
-      });
+      if (this.weather) {
+        this.weather.list.forEach(item => {
+          if (item.dt <= day && day < item.dt + 24 * 60 * 60) {
+            this.days[index].weather = item.weather[0].main;
+            this.days[index].weatherIcon =
+              "http://openweathermap.org/img/w/" +
+              item.weather[0].icon +
+              ".png";
+          }
+        });
+      }
       return true;
     },
     openPopUp(index) {
@@ -132,6 +135,7 @@ export default {
       const selectedIndex = this.selectedButton;
       this.showPopUp = false;
       this.days[selectedIndex].itinerary.push({ text: plan });
+      localStorage.days = JSON.stringify(this.days);
     },
     deleteItinerary(indexDay, indexItinerary) {
       this.days[indexDay].itinerary.splice(indexItinerary, 1);
