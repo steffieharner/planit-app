@@ -11,6 +11,13 @@ You can check out the [app](https://planit-e21d2.web.app/) deployed by Google Fi
 <img src="https://user-images.githubusercontent.com/5979966/69343621-4c798b00-0cb1-11ea-8219-b2b4afcb41bd.gif" alt="TOP PAGE">
 </p>
 
+# Technologies
+
+Using RakutenRapidAPI Library of free and paid API's.
+<p align="center">
+<img src="https://i.ibb.co/XL0KZbz/Screen-Shot-2021-02-13-at-11-43-08-AM.png" alt="Screen-Shot-2021-02-13-at-11-43-08-AM" border="0">
+</p>
+
 # Installation
 
 To clone and run this application, you'll need Git and Node.js (which comes with yarn) installed on your computer.
